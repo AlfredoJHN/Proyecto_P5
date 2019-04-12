@@ -1,0 +1,34 @@
+﻿@model SIRERH.Models.VACANTE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VACANTE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PUESTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PUESTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HORARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORARIO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_VACANTE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

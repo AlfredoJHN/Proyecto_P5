@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProyectoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DETALLE">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXPERIENCIA" Type="nvarchar" MaxLength="200" />
+          <Property Name="GRADO_ACADEMICO" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID_TECNOLOGIA" Type="int" />
+        </EntityType>
+        <EntityType Name="TECNOLOGIA">
+          <Key>
+            <PropertyRef Name="ID_TECNOLOGIA" />
+          </Key>
+          <Property Name="ID_TECNOLOGIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TECNOLOGIA" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="TECNOLOGIA_USUARIO">
+          <Key>
+            <PropertyRef Name="ID_TECNOLOGIA" />
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_TECNOLOGIA" Type="int" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="75" />
+          <Property Name="APELLIDO1" Type="nvarchar" MaxLength="50" />
+          <Property Name="APELLIDO2" Type="nvarchar" MaxLength="50" />
+          <Property Name="EDAD" Type="int" />
+          <Property Name="CORREO" Type="nvarchar" MaxLength="50" />
+          <Property Name="TELEFONO" Type="nvarchar" MaxLength="20" />
+          <Property Name="SEXO" Type="nvarchar" MaxLength="50" />
+          <Property Name="CEDULA" Type="nvarchar" MaxLength="20" />
+          <Property Name="USUARIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORDS" Type="nvarchar" MaxLength="100" />
+          <Property Name="TIPO_USUARIO" Type="bit" />
+          <Property Name="ESTADO" Type="bit" />
+        </EntityType>
+        <EntityType Name="VACANTE">
+          <Key>
+            <PropertyRef Name="ID_VACANTE" />
+          </Key>
+          <Property Name="ID_VACANTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PUESTO" Type="nvarchar" MaxLength="75" />
+          <Property Name="HORARIO" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VACANTE_TECNOLOGIA">
+          <Key>
+            <PropertyRef Name="ID_TECNOLOGIA" />
+            <PropertyRef Name="ID_VACANTE" />
+          </Key>
+          <Property Name="ID_TECNOLOGIA" Type="int" Nullable="false" />
+          <Property Name="ID_VACANTE" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DETALLE_TECNOLOGIA">
+          <End Role="TECNOLOGIA" Type="Self.TECNOLOGIA" Multiplicity="0..1" />
+          <End Role="DETALLE" Type="Self.DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TECNOLOGIA">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Principal>
+            <Dependent Role="DETALLE">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TECNOLOGIA_USUARIO">
+          <End Role="TECNOLOGIA" Type="Self.TECNOLOGIA" Multiplicity="1" />
+          <End Role="TECNOLOGIA_USUARIO" Type="Self.TECNOLOGIA_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TECNOLOGIA">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Principal>
+            <Dependent Role="TECNOLOGIA_USUARIO">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TECNOLOGIA_VACANTE">
+          <End Role="TECNOLOGIA" Type="Self.TECNOLOGIA" Multiplicity="1" />
+          <End Role="VACANTE_TECNOLOGIA" Type="Self.VACANTE_TECNOLOGIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TECNOLOGIA">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Principal>
+            <Dependent Role="VACANTE_TECNOLOGIA">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_TECNOLOGIA">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="TECNOLOGIA_USUARIO" Type="Self.TECNOLOGIA_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="TECNOLOGIA_USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VACANTE_TECNOLOGIA">
+          <End Role="VACANTE" Type="Self.VACANTE" Multiplicity="1" />
+          <End Role="VACANTE_TECNOLOGIA" Type="Self.VACANTE_TECNOLOGIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VACANTE">
+              <PropertyRef Name="ID_VACANTE" />
+            </Principal>
+            <Dependent Role="VACANTE_TECNOLOGIA">
+              <PropertyRef Name="ID_VACANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProyectoModelStoreContainer">
+          <EntitySet Name="DETALLE" EntityType="Self.DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TECNOLOGIA" EntityType="Self.TECNOLOGIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TECNOLOGIA_USUARIO" EntityType="Self.TECNOLOGIA_USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VACANTE" EntityType="Self.VACANTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VACANTE_TECNOLOGIA" EntityType="Self.VACANTE_TECNOLOGIA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DETALLE_TECNOLOGIA" Association="Self.FK_DETALLE_TECNOLOGIA">
+            <End Role="TECNOLOGIA" EntitySet="TECNOLOGIA" />
+            <End Role="DETALLE" EntitySet="DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TECNOLOGIA_USUARIO" Association="Self.FK_TECNOLOGIA_USUARIO">
+            <End Role="TECNOLOGIA" EntitySet="TECNOLOGIA" />
+            <End Role="TECNOLOGIA_USUARIO" EntitySet="TECNOLOGIA_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TECNOLOGIA_VACANTE" Association="Self.FK_TECNOLOGIA_VACANTE">
+            <End Role="TECNOLOGIA" EntitySet="TECNOLOGIA" />
+            <End Role="VACANTE_TECNOLOGIA" EntitySet="VACANTE_TECNOLOGIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_TECNOLOGIA" Association="Self.FK_USUARIO_TECNOLOGIA">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="TECNOLOGIA_USUARIO" EntitySet="TECNOLOGIA_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VACANTE_TECNOLOGIA" Association="Self.FK_VACANTE_TECNOLOGIA">
+            <End Role="VACANTE" EntitySet="VACANTE" />
+            <End Role="VACANTE_TECNOLOGIA" EntitySet="VACANTE_TECNOLOGIA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProyectoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DETALLE">
+          <Key>
+            <PropertyRef Name="ID_DETALLE" />
+          </Key>
+          <Property Name="ID_DETALLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXPERIENCIA" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GRADO_ACADEMICO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_TECNOLOGIA" Type="Int32" />
+          <NavigationProperty Name="TECNOLOGIA" Relationship="Self.FK_DETALLE_TECNOLOGIA" FromRole="DETALLE" ToRole="TECNOLOGIA" />
+        </EntityType>
+        <EntityType Name="TECNOLOGIA">
+          <Key>
+            <PropertyRef Name="ID_TECNOLOGIA" />
+          </Key>
+          <Property Name="ID_TECNOLOGIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TECNOLOGIA1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DETALLE" Relationship="Self.FK_DETALLE_TECNOLOGIA" FromRole="TECNOLOGIA" ToRole="DETALLE" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.TECNOLOGIA_USUARIO" FromRole="TECNOLOGIA" ToRole="USUARIO" />
+          <NavigationProperty Name="VACANTE" Relationship="Self.VACANTE_TECNOLOGIA" FromRole="TECNOLOGIA" ToRole="VACANTE" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="APELLIDO1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="APELLIDO2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EDAD" Type="Int32" />
+          <Property Name="CORREO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SEXO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CEDULA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USUARIO1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORDS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TIPO_USUARIO" Type="Boolean" />
+          <Property Name="ESTADO" Type="Boolean" />
+          <NavigationProperty Name="TECNOLOGIA" Relationship="Self.TECNOLOGIA_USUARIO" FromRole="USUARIO" ToRole="TECNOLOGIA" />
+        </EntityType>
+        <EntityType Name="VACANTE">
+          <Key>
+            <PropertyRef Name="ID_VACANTE" />
+          </Key>
+          <Property Name="ID_VACANTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PUESTO" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="HORARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TECNOLOGIA" Relationship="Self.VACANTE_TECNOLOGIA" FromRole="VACANTE" ToRole="TECNOLOGIA" />
+        </EntityType>
+        <Association Name="FK_DETALLE_TECNOLOGIA">
+          <End Role="TECNOLOGIA" Type="Self.TECNOLOGIA" Multiplicity="0..1" />
+          <End Role="DETALLE" Type="Self.DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TECNOLOGIA">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Principal>
+            <Dependent Role="DETALLE">
+              <PropertyRef Name="ID_TECNOLOGIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TECNOLOGIA_USUARIO">
+          <End Role="TECNOLOGIA" Type="Self.TECNOLOGIA" Multiplicity="*" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+        </Association>
+        <Association Name="VACANTE_TECNOLOGIA">
+          <End Role="TECNOLOGIA" Type="Self.TECNOLOGIA" Multiplicity="*" />
+          <End Role="VACANTE" Type="Self.VACANTE" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Proyecto_P5Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DETALLE" EntityType="Self.DETALLE" />
+          <EntitySet Name="TECNOLOGIA" EntityType="Self.TECNOLOGIA" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <EntitySet Name="VACANTE" EntityType="Self.VACANTE" />
+          <AssociationSet Name="FK_DETALLE_TECNOLOGIA" Association="Self.FK_DETALLE_TECNOLOGIA">
+            <End Role="TECNOLOGIA" EntitySet="TECNOLOGIA" />
+            <End Role="DETALLE" EntitySet="DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="TECNOLOGIA_USUARIO" Association="Self.TECNOLOGIA_USUARIO">
+            <End Role="TECNOLOGIA" EntitySet="TECNOLOGIA" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="VACANTE_TECNOLOGIA" Association="Self.VACANTE_TECNOLOGIA">
+            <End Role="TECNOLOGIA" EntitySet="TECNOLOGIA" />
+            <End Role="VACANTE" EntitySet="VACANTE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProyectoModelStoreContainer" CdmEntityContainer="Proyecto_P5Entities">
+          <EntitySetMapping Name="DETALLE">
+            <EntityTypeMapping TypeName="ProyectoModel.DETALLE">
+              <MappingFragment StoreEntitySet="DETALLE">
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+                <ScalarProperty Name="EXPERIENCIA" ColumnName="EXPERIENCIA" />
+                <ScalarProperty Name="GRADO_ACADEMICO" ColumnName="GRADO_ACADEMICO" />
+                <ScalarProperty Name="ID_TECNOLOGIA" ColumnName="ID_TECNOLOGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TECNOLOGIA">
+            <EntityTypeMapping TypeName="ProyectoModel.TECNOLOGIA">
+              <MappingFragment StoreEntitySet="TECNOLOGIA">
+                <ScalarProperty Name="ID_TECNOLOGIA" ColumnName="ID_TECNOLOGIA" />
+                <ScalarProperty Name="TECNOLOGIA1" ColumnName="TECNOLOGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="ProyectoModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDO1" ColumnName="APELLIDO1" />
+                <ScalarProperty Name="APELLIDO2" ColumnName="APELLIDO2" />
+                <ScalarProperty Name="EDAD" ColumnName="EDAD" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="USUARIO1" ColumnName="USUARIO" />
+                <ScalarProperty Name="PASSWORDS" ColumnName="PASSWORDS" />
+                <ScalarProperty Name="TIPO_USUARIO" ColumnName="TIPO_USUARIO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VACANTE">
+            <EntityTypeMapping TypeName="ProyectoModel.VACANTE">
+              <MappingFragment StoreEntitySet="VACANTE">
+                <ScalarProperty Name="ID_VACANTE" ColumnName="ID_VACANTE" />
+                <ScalarProperty Name="PUESTO" ColumnName="PUESTO" />
+                <ScalarProperty Name="HORARIO" ColumnName="HORARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TECNOLOGIA_USUARIO" TypeName="ProyectoModel.TECNOLOGIA_USUARIO" StoreEntitySet="TECNOLOGIA_USUARIO">
+            <EndProperty Name="TECNOLOGIA">
+              <ScalarProperty Name="ID_TECNOLOGIA" ColumnName="ID_TECNOLOGIA" />
+            </EndProperty>
+            <EndProperty Name="USUARIO">
+              <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="VACANTE_TECNOLOGIA" TypeName="ProyectoModel.VACANTE_TECNOLOGIA" StoreEntitySet="VACANTE_TECNOLOGIA">
+            <EndProperty Name="TECNOLOGIA">
+              <ScalarProperty Name="ID_TECNOLOGIA" ColumnName="ID_TECNOLOGIA" />
+            </EndProperty>
+            <EndProperty Name="VACANTE">
+              <ScalarProperty Name="ID_VACANTE" ColumnName="ID_VACANTE" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

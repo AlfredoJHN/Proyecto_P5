@@ -1,0 +1,42 @@
+﻿@model SIRERH.Models.DETALLE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DETALLE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EXPERIENCIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EXPERIENCIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GRADO_ACADEMICO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GRADO_ACADEMICO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TECNOLOGIA.TECNOLOGIA1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TECNOLOGIA.TECNOLOGIA1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_DETALLE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
