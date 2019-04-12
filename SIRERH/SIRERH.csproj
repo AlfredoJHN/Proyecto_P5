@@ -177,6 +177,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VACANTEsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,6 +189,7 @@
     </Compile>
     <Compile Include="Controllers\DETALLEsController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ListaViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -311,6 +313,7 @@
     <Content Include="Views\VACANTEs\Details.cshtml" />
     <Content Include="Views\VACANTEs\Edit.cshtml" />
     <Content Include="Views\VACANTEs\Index.cshtml" />
+    <Content Include="Views\Lista\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
