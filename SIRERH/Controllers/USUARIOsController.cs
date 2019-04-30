@@ -45,10 +45,12 @@ namespace SIRERH.Models
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_USUARIO,NOMBRE,APELLIDO1,APELLIDO2,EDAD,CORREO,TELEFONO,SEXO,CEDULA,USUARIO1,PASSWORDS,TIPO_USUARIO,ESTADO")] USUARIO uSUARIO)
+        public ActionResult Create([Bind(Include = "ID_USUARIO,NOMBRE,APELLIDO1,APELLIDO2,EDAD,CORREO,TELEFONO,SEXO,CEDULA,USUARIO1,PASSWORDS")] USUARIO uSUARIO)
         {
             if (ModelState.IsValid)
             {
+                uSUARIO.ESTADO = true;
+                uSUARIO.TIPO_USUARIO = true;
                 db.USUARIO.Add(uSUARIO);
                 db.SaveChanges();
                 return RedirectToAction("Index");

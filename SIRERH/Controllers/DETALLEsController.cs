@@ -11,8 +11,10 @@ namespace SIRERH.Models
 {
     public class DETALLEsController : Controller
     {
+        
         private Proyecto_P5Entities db = new Proyecto_P5Entities();
 
+        [Authorize]
         // GET: DETALLEs
         public ActionResult Index()
         {
